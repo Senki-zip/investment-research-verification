@@ -1,0 +1,7 @@
+interface:
+  display_name: "Investment Research Verification"
+  short_description: "Verify valuation, events, fundamentals, and flows"
+  default_prompt: "Use $investment-research-verification to verify valuation, events, fundamentals, and fund flows for a listed company, ETF, fund, index, or industry."
+
+policy:
+  allow_implicit_invocation: true
