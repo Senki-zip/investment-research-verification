@@ -107,6 +107,8 @@ Final answers must include the evidence status for material claims. Only put an 
 
 For standard or deep research on listed companies, industries, indices, ETFs, funds, or portfolios, do not omit valuation or fund-flow/liquidity analysis. If live data is unavailable, include the module with `unavailable` status, the last accessible observation date, proxy indicators, and lowered confidence.
 
+For standard or deep company/industry/theme research, do not omit a company financial statistics table. At minimum include revenue, revenue growth, net profit or adjusted net profit, profit growth, gross margin or net margin where available, operating cash flow, and the reporting period for each representative company. If a field is unavailable, mark it `unavailable` rather than dropping the column.
+
 Valuation must include at least current market cap or price context plus PE/PB/PS or the sector-appropriate alternatives. For high-growth or loss-making companies, include PS, gross margin, revenue growth, cash-flow quality, and forward expectation context. For cyclical companies, include normalized-cycle caveats.
 
 Fund-flow/liquidity must separate:

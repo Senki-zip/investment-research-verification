@@ -151,7 +151,7 @@ verification:
 For a standard or deep company/industry request, include at least:
 
 - Industry demand evidence
-- Company revenue/profit evidence
+- Company financial statistics table with revenue, profit, margins, and cash-flow fields
 - Cash-flow and balance-sheet quality evidence
 - Valuation evidence with current valuation fields and a relative judgment
 - Liquidity/fund-flow evidence with source type and confidence
@@ -193,6 +193,43 @@ Disclaimer:
 ```
 
 The chat response should summarize the key conclusion and link to the report file. Do not omit the report file for standard/deep work unless filesystem writing is impossible.
+
+## Required Company Financial Statistics Module
+
+For standard or deep company, industry, or theme research, include a company financial statistics table. Do not replace this table with a narrative or with only a "fundamental verification chain."
+
+Minimum fields:
+
+```yaml
+financial_statistics_row:
+  company:
+  ticker:
+  segment_or_role:
+  reporting_period:
+  revenue:
+  revenue_growth:
+  gross_margin:
+  operating_profit:
+  net_profit_or_adjusted_net_profit:
+  profit_growth:
+  operating_cash_flow:
+  free_cash_flow:
+  accounts_receivable:
+  inventory:
+  contract_liabilities_or_advance_receipts:
+  financial_quality_judgment: strong | improving | mixed | weak | unavailable
+  confidence: high | medium | low
+  source:
+```
+
+For theme research with many companies, include at least the representative companies used in valuation and fund-flow tables. If a field is not disclosed or cannot be found, keep the column and mark the cell `unavailable`; do not drop the metric silently.
+
+Interpretation rules:
+
+- Revenue growth without profit growth is incomplete realization.
+- Profit growth without operating cash-flow improvement is lower-quality realization.
+- Receivables, contract assets, inventory, or prepayments growing much faster than revenue should be flagged.
+- One-off investment income, disposal gains, subsidy gains, or fair-value changes should be separated from operating profit quality when material.
 
 ## Required Valuation Module
 
