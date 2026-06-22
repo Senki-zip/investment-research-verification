@@ -120,6 +120,45 @@ Inventory growth gap = inventory growth - revenue growth
 
 If operating cash flow remains far below net profit, flag earnings-quality risk.
 
+## Verification Closure Matrix
+
+Use this matrix before finalizing. Do not leave a material claim as "to be verified" until the available proxy evidence has been checked.
+
+| Claim | Direct evidence | Proxy evidence when direct evidence is unavailable | Red flags |
+| -- | -- | -- | -- |
+| Orders are growing | Announced contract value, backlog, signed orders, disclosed customer awards | Contract liabilities, advances from customers, management commentary, capex plans of customers, revenue by product line | Only framework agreements, samples, validation, or rumors |
+| Orders converted to revenue | Segment/product revenue growth, shipment volume, utilization | Inventory drawdown, receivable collection, customer concentration stability | Revenue growth with receivables/contract assets rising much faster |
+| Revenue converted to profit | Gross profit, operating profit, net profit, margin expansion | Mix change, utilization improvement, price data | Revenue growth with margin decline or one-off gains |
+| Profit converted to cash | Operating cash flow, free cash flow, cash earnings match | Receivable turnover, inventory turnover, advances, capex cycle | Net profit up but operating cash flow negative or deteriorating |
+| Growth is sustainable | Repeat orders, backlog, customer diversification, capacity plans | R&D progress, new product certification, downstream capex cycle | High customer concentration, subsidy dependence, inventory buildup |
+| Valuation is justified | Current valuation vs history, peers, and forward growth | PEG, FCF yield, ROIC, earnings revision trend | Valuation expansion without earnings revision or cash-flow improvement |
+| Fund inflow is real | ETF shares outstanding, disclosed holdings, northbound/southbound holdings, fund reports | Trading value, turnover, margin balance | "Main force inflow" only, no share/holding confirmation |
+
+For each material claim, output:
+
+```yaml
+verification:
+  claim:
+  status: verified | partially_verified | not_verified | contradicted | unavailable
+  evidence:
+  proxy_used:
+  confidence: high | medium | low
+  implication:
+```
+
+## Minimum Research Depth
+
+For a standard or deep company/industry request, include at least:
+
+- Industry demand evidence
+- Company revenue/profit evidence
+- Cash-flow and balance-sheet quality evidence
+- Valuation evidence
+- Liquidity/fund-flow evidence where market data is available
+- Risk checks with explicit pass/fail/unknown state
+
+If time or source access is limited, state that the output is scoped and list which modules were not completed.
+
 ## Valuation Metrics
 
 General companies:

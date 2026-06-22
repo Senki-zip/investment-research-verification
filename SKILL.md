@@ -75,11 +75,32 @@ Use current data for current conclusions. Do not use stale filings to explain a 
 4. Extract financials, operating metrics, valuation, and liquidity/fund-flow data.
 5. Compare against historical ranges, industry averages, peers, and relevant market benchmarks.
 6. Test whether growth has been realized in orders, revenue, profit, and free cash flow.
-7. Classify each key event as positive, neutral, or negative with confidence and time horizon.
-8. Check risk factors and value-trap conditions before giving any favorable or undervalued conclusion.
-9. Output a structured conclusion with missing data, assumptions, uncertainty, and next verification points.
+7. Convert every "needs further verification" item into an immediate evidence search unless the data is genuinely unavailable.
+8. Classify each key event as positive, neutral, or negative with confidence and time horizon.
+9. Check risk factors and value-trap conditions before giving any favorable or undervalued conclusion.
+10. Output a structured conclusion with verified evidence, failed checks, missing data, assumptions, uncertainty, and next verification points.
 
 For detailed metric checklists, scoring rules, event templates, and output tables, read `references/research-framework.md`.
+
+## Verification Closure
+
+Do not stop at a list of "items to verify" when the user asks for research. For each material uncertainty, perform the next available evidence search before finalizing:
+
+- If order data is unavailable, check revenue growth, contract liabilities, advance receipts, backlog, management commentary, customer concentration, and inventory/prepayment changes.
+- If revenue growth is claimed, verify whether gross margin, operating margin, net profit, operating cash flow, and free cash flow improved in the same period.
+- If profit growth is claimed, verify whether accounts receivable, contract assets, inventory, and capitalized costs grew faster than revenue.
+- If fund inflow is claimed, distinguish ETF share changes or disclosed holdings from secondary-market trade-size estimates.
+- If valuation is claimed low or high, compare current valuation to history, peers, expected growth, cash-flow quality, and balance-sheet risk.
+
+Assign each verification item one of:
+
+- `verified`: direct primary-source evidence supports the claim.
+- `partially_verified`: proxy indicators support the claim, but direct evidence is incomplete.
+- `not_verified`: available evidence does not support the claim.
+- `contradicted`: available evidence points against the claim.
+- `unavailable`: the required data is not disclosed or accessible; provide the best proxy and lower confidence.
+
+Final answers must include the evidence status for material claims. Only put an item into "next things to track" after attempting available verification and explaining why it cannot be closed now.
 
 ## Analysis Rules
 
