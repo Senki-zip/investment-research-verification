@@ -242,7 +242,9 @@ valuation_row:
   security:
   date:
   market_cap:
-  price_context:
+  opening_price:
+  closing_or_latest_price:
+  price_change:
   pe_ttm:
   forward_pe:
   pb:
@@ -274,6 +276,8 @@ Valuation evidence priority:
 
 If current valuation fields conflict across sources, show the range and explain likely causes, such as static vs TTM PE, adjusted vs GAAP earnings, negative earnings, different share counts, or delayed data.
 
+Price fields are mandatory numeric fields for listed securities. Include same-day opening price and closing price; if the market has not closed, label the latest traded price with the timestamp and update the report after close when the user asks for a daily report. Do not use vague price context such as "quote page available" or "valuation page available."
+
 ## Required Fund-Flow and Liquidity Module
 
 For every standard or deep listed-security research output, include a fund-flow/liquidity table. Do not replace it with narrative text.
@@ -284,6 +288,8 @@ Minimum fields:
 liquidity_row:
   security_or_fund:
   date:
+  opening_price:
+  closing_or_latest_price:
   price_change:
   trading_value:
   turnover_rate:
@@ -313,6 +319,8 @@ For industries or themes, include both:
 
 When ETF share data is unavailable, say so explicitly and use trading value only as a market-liquidity proxy, not proof of inflow.
 
+Every metric included in the liquidity table must be a concrete value with unit, date, and source. Do not put source-navigation text or placeholders in cells. If a desired metric cannot be obtained from the preferred source, try the fallback sequence in the source-routing section. If it remains unavailable, remove that metric from the main table for that security and list it in "Data Gaps and Proxy Indicators" with the attempted sources and why confidence is reduced.
+
 ## Fund-Flow and Liquidity Source Routing
 
 Use this source routing before generic web search. Prefer official or primary sources for confirmed fund-flow evidence, then use market-data sites for liquidity and sentiment proxies.
@@ -331,6 +339,7 @@ Official and high-confidence sources:
 Secondary market-data sources:
 
 - 东方财富 quote/data pages: `https://quote.eastmoney.com/`, `https://data.eastmoney.com/` for PE/PB/PS, market cap, turnover, margin financing, large-order flow, sector flow.
+- 腾讯行情: `https://qt.gtimg.cn/` for A-share same-day open, close/latest, high, low, price change, trading value, turnover, PE, PB, and market-cap snapshots when 东方财富 quote APIs are unstable.
 - 新浪财经: `https://finance.sina.com.cn/` and `https://vip.stock.finance.sina.com.cn/` for quotes, announcements, transaction data, and news.
 - 证券时报 quote pages: `https://www.stcn.com/quotes/` for market snapshots, financing balance, and related news.
 - 富途/Moomoo: `https://www.futunn.com/` and `https://www.moomoo.com/` for quotes, turnover, valuation fields, and market snapshots.
@@ -340,9 +349,10 @@ For A-share fund-flow tables, keep the market-data source consistent across all 
 
 1. Use 东方财富 as the default unified source for A-share market snapshots, valuation fields, sector/stock fund-flow pages, turnover, trading value, margin financing, and large-order/main-force flow.
 2. Use 同花顺/iFinD pages as the first fallback when 东方财富 does not provide an accessible field.
-3. Use 新浪、证券时报、富途/Moomoo、雪球 only as fallback or cross-check sources, and label the row as `mixed_source` if their data is combined with 东方财富/同花顺.
+3. Use 交易所、腾讯行情、新浪、证券时报、富途/Moomoo、雪球 only as fallback or cross-check sources, and label the row as `mixed_source` if their data is combined with 东方财富/同花顺.
 4. Do not compare "main force flow" values across different vendors unless the report explicitly says the methodologies differ.
 5. If a table uses a unified source, state it in the table note, for example: `A-share liquidity fields use 东方财富 unless otherwise noted.`
+6. For price fields, do not stop at source availability. The table must show numeric opening price and closing/latest price. If the default source fails, use a fallback quote source before finalizing.
 
 ### Hong Kong equities
 
@@ -399,7 +409,7 @@ For each ETF or theme fund, try in this order:
 3. Fund periodic report for holdings.
 4. Secondary ETF flow pages for 1-day, 5-day, 20-day, 60-day share/fund-size changes.
 
-If a source blocks access or requires a paid terminal, write `unavailable`, identify the blocked source, and substitute a lower-confidence proxy rather than omitting the row.
+If a source blocks access or requires a paid terminal, try the fallback sources above before using `unavailable`. Do not leave a metric cell as `unavailable` for same-day price, trading value, turnover, PE/PB, or market-cap fields unless all listed public quote fallbacks fail. In that case, remove the metric from the main table and document the failed sources in "Data Gaps and Proxy Indicators."
 
 ## Valuation Metrics
 

@@ -123,6 +123,8 @@ Before generic web search for fund-flow or liquidity, use the source routing in 
 
 For A-share fund-flow and liquidity tables, use a single market-data vendor across representative companies whenever possible. Prefer 东方财富 as the default source, use 同花顺/iFinD as fallback, and mark rows as `mixed_source` if data must be combined from other vendors. Do not compare vendor-specific "main force flow" values without noting methodology differences.
 
+Numerical market-data fields must be closed with concrete values, not page pointers. For listed securities, any table that includes price or liquidity must include the observation date, opening price, closing price or latest traded price, price change, trading value, turnover rate, market cap, and the source. If 东方财富 is unstable or does not expose a field, immediately use 同花顺/iFinD, exchange pages, 腾讯行情, 新浪财经, 证券时报, 富途/Moomoo, TradingView, or another reputable quote source and label the fallback source. Do not write placeholder phrases such as "估值页可查", "行情页入口可查", "页面可查", "未稳定抓取", or similar text in metric cells. A metric cell must contain a numeric value with unit and period, or the metric should be removed from that table and explained in the data-gap section after fallback sources have been attempted.
+
 ## Report File Requirement
 
 For standard or deep research, create a user-facing Markdown report in the active workspace `outputs/` directory when available. Use a descriptive lowercase filename such as:
