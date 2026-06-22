@@ -1,0 +1,445 @@
+# Investment Research Verification Framework
+
+Use this reference after `SKILL.md` triggers. It contains the detailed checklists, formulas, templates, and classification rules for investment research verification.
+
+## Input Schema
+
+Extract as much as possible from the user request:
+
+```yaml
+research_target:
+  type: company | industry | index | etf | fund | commodity | portfolio
+  name:
+  ticker:
+  market: CN | HK | US | GLOBAL
+  industry:
+
+research_focus:
+  - valuation
+  - earnings
+  - orders
+  - capital_expenditure
+  - policy
+  - supply_demand
+  - fund_flow
+  - liquidity
+  - risk
+  - event_impact
+
+time_range:
+  event_window:
+  financial_period:
+  valuation_period:
+
+comparison:
+  historical_average: true
+  industry_average: true
+  peer_companies: []
+  benchmark_index:
+
+output_depth: brief | standard | deep
+```
+
+## Event Retrieval
+
+For companies, check:
+
+- Earnings reports, previews, and guidance
+- Revenue, profit, and cash-flow changes
+- Major contracts, orders, backlog, customer validation, product certification
+- Capacity expansion, capex, R&D, acquisitions, disposals
+- Buybacks, cancellations, dividends, equity incentives
+- Management changes, insider/major-holder increases or decreases
+- Penalties, litigation, debt, refinancing, goodwill impairment
+- Customer/supplier concentration changes
+- Sanctions, export restrictions, tariffs
+
+For industries, check:
+
+- Sales, shipments, prices, inventories, utilization, new capacity
+- Capex cycle, upstream raw materials, downstream demand
+- Subsidies, regulation, import/export data, technology route changes
+- Competition, concentration, price war, over/under-supply
+- Guidance from industry leaders
+
+For ETFs and funds, check:
+
+- Latest NAV and premium/discount
+- Share/unit changes and estimated net subscriptions/redemptions
+- Turnover, spread, tracking error, fund size
+- Top holdings, industry/region exposure, index rules
+- Manager changes, subscription restrictions, QDII quota limits, fees, distributions
+
+## Financial Data
+
+Collect where relevant:
+
+```yaml
+income_statement:
+  - revenue
+  - revenue_growth
+  - gross_profit
+  - gross_margin
+  - operating_profit
+  - net_profit
+  - adjusted_net_profit
+  - eps
+
+balance_sheet:
+  - cash
+  - total_debt
+  - net_debt
+  - inventory
+  - accounts_receivable
+  - contract_liabilities
+  - goodwill
+  - construction_in_progress
+
+cash_flow:
+  - operating_cash_flow
+  - capital_expenditure
+  - free_cash_flow
+
+operating_metrics:
+  - order_backlog
+  - shipment_volume
+  - average_selling_price
+  - utilization_rate
+  - customer_concentration
+```
+
+Compute:
+
+```text
+Free cash flow = operating cash flow - capital expenditure
+Net cash = cash and equivalents - interest-bearing debt
+Cash earnings match = operating cash flow / net profit
+Receivable growth gap = accounts receivable growth - revenue growth
+Inventory growth gap = inventory growth - revenue growth
+```
+
+If operating cash flow remains far below net profit, flag earnings-quality risk.
+
+## Valuation Metrics
+
+General companies:
+
+- PE TTM, forward PE, PB, PS, EV/EBITDA, EV/Sales, FCF yield, dividend yield, PEG
+
+Financial companies:
+
+- PB, ROE, dividend yield, non-performing ratio, net interest margin, capital adequacy
+
+High-growth or loss-making companies:
+
+- PS, EV/Sales, gross margin, revenue growth, operating cash flow, unit economics
+
+Cyclical sectors:
+
+- Do not rely on static PE alone.
+- Analyze normalized earnings, commodity price cycle, utilization, inventory, capex, PB, EV/EBITDA, and cycle position.
+
+ETFs:
+
+- Index PE, PB, dividend yield, historical percentile, component earnings growth, top-holding concentration
+
+## Historical Comparison
+
+Compare at least:
+
+- Current value
+- Latest 3-year median
+- Latest 5-year median
+- Historical 25th percentile
+- Historical 75th percentile
+- Historical high/low range
+
+Use:
+
+```text
+Historical percentile = count(historical observations below current value) / total observations
+```
+
+Classification:
+
+```yaml
+valuation_percentile:
+  0-20: significantly_below_history
+  20-40: below_history
+  40-60: neutral
+  60-80: above_history
+  80-100: significantly_above_history
+```
+
+Valuation percentile alone must not determine whether something is overvalued or undervalued. Reduce the weight of historical averages if business mix, earnings quality, or growth stage has materially changed.
+
+## Peer Comparison
+
+Select peers with similar:
+
+- Main business, revenue structure, market region, profit model
+- Growth stage, capital intensity, customer type, leverage profile
+
+Compare:
+
+```yaml
+growth:
+  - revenue_growth
+  - profit_growth
+  - eps_growth
+profitability:
+  - gross_margin
+  - operating_margin
+  - net_margin
+  - roe
+  - roic
+quality:
+  - operating_cash_flow_to_net_profit
+  - free_cash_flow_margin
+  - debt_ratio
+valuation:
+  - pe
+  - ps
+  - pb
+  - ev_ebitda
+  - fcf_yield
+shareholder_return:
+  - dividend_yield
+  - buyback_yield
+  - net_share_count_change
+```
+
+Explain whether a premium or discount versus peers is justified by growth, margins, ROIC, balance sheet quality, or shareholder returns.
+
+## Event Impact Template
+
+Use this for each key event:
+
+```yaml
+event:
+  title:
+  date:
+  source:
+  evidence_level: confirmed_fact | management_guidance | consensus_estimate | unverified
+  affected_variables:
+    - revenue
+    - margin
+    - cash_flow
+    - valuation
+    - liquidity
+  impact_horizon: short_term | medium_term | long_term
+  preliminary_impact: strong_positive | positive | neutral | negative | strong_negative
+  confidence: high | medium | low
+  reasoning:
+```
+
+Potential positives include real order growth, earnings beats, margin improvement, free-cash-flow improvement, higher utilization, supply/demand improvement, buyback cancellation at reasonable valuation, lower debt, market-share gain, and policy that directly increases demand or reduces cost.
+
+Potential negatives include order cancellation or miss, revenue growth with margin decline, receivables/inventory growing much faster than revenue, unclear capex returns, price war, customer loss, overcapacity, dilution, major selling, penalties, debt/refinancing pressure, and free-cash-flow deterioration.
+
+## Valuation Scoring
+
+Use scoring only as an aid, not a mechanical substitute for judgment:
+
+```yaml
+valuation_score:
+  historical_valuation: -2 to +2
+  peer_valuation: -2 to +2
+  earnings_growth: -2 to +2
+  earnings_quality: -2 to +2
+  balance_sheet: -2 to +2
+  shareholder_return: -2 to +2
+```
+
+Meaning:
+
+- `+2`: clearly favorable
+- `+1`: mildly favorable
+- `0`: neutral or insufficient information
+- `-1`: mildly unfavorable
+- `-2`: clearly unfavorable
+
+Indicative conclusion:
+
+```yaml
+total_score:
+  7_to_12: likely_undervalued
+  3_to_6: slightly_undervalued
+  -2_to_2: fair
+  -6_to_-3: slightly_overvalued
+  -12_to_-7: likely_overvalued
+```
+
+Always provide confidence.
+
+## Fund Flow and Liquidity
+
+For individual stocks, check:
+
+- Latest 1-day, 5-day, 20-day, 60-day turnover and trading value
+- Trading value percentile versus the past year
+- Turnover rate, margin balance, block trades
+- northbound/southbound holdings where relevant
+- Institutional holding changes, ETF passive ownership effect
+- Major-holder/management changes, pledges, lock-up expirations
+
+Treat "main force net inflow" as a model-based estimate from trade size, not confirmed institutional behavior. Give it low or medium credibility unless independently corroborated.
+
+For ETFs, estimate fund flow primarily from:
+
+```text
+change in fund shares * fund NAV
+```
+
+Do not infer ETF net subscriptions from secondary-market buy orders alone.
+
+ETF interpretation:
+
+```text
+price up + shares up: net inflow and rising market acceptance
+price up + shares down: possible redemptions or profit taking
+price down + shares up: possible contrarian accumulation
+price down + shares down: stronger outflow signal
+```
+
+For industry fund flow, check:
+
+- Industry index performance, turnover, turnover share of total market
+- Industry ETF share changes
+- Active fund allocation, financing balance, northbound/southbound preference
+- New thematic fund issuance, IPO/refinancing size, industrial capital flows
+
+Liquidity classification:
+
+```yaml
+liquidity_state:
+  strong_inflow:
+    - trading value rising
+    - ETF shares increasing
+    - financing balance increasing
+    - price trend up
+  speculative_inflow:
+    - trading value surging
+    - ETF shares not clearly increasing
+    - valuation expanding quickly
+    - fundamentals not improving in sync
+  neutral:
+    - indicators conflict
+  outflow:
+    - trading value falling
+    - ETF shares falling
+    - financing balance falling
+    - performance weaker than benchmark
+```
+
+Macro liquidity by market:
+
+- China: policy rates, government bond yields, social financing, M1/M2, interbank rates, RMB exchange rate, northbound/southbound flow, market turnover, margin balance, new fund issuance
+- United States: federal funds rate, 2-year/10-year Treasury yields, real rates, DXY, Fed balance sheet, bank reserves, money-market fund assets, ETF flows, VIX, credit spreads
+- Commodities: DXY, real rates, inventory, futures positioning, term structure, spot premium/discount, CFTC positioning, key ETF share changes
+
+Liquidity conclusion:
+
+```yaml
+liquidity_conclusion:
+  strong_positive: sustained inflow with trading and share/unit improvement
+  positive: marginal improvement, durability uncertain
+  neutral: mixed indicators, no clear trend
+  negative: redemption, volume contraction, or weaker risk appetite
+  strong_negative: sustained withdrawal with price and turnover deterioration
+```
+
+## Confidence Rules
+
+High confidence generally requires official or primary-source data, cross-source verification, complete financial data, reasonable peers, clear fund-flow methodology, and conclusions not dependent on one forecast.
+
+Medium confidence applies when some data comes from third parties, industry data lags, order details are undisclosed, valuation is cycle-sensitive, or fund-flow definitions differ.
+
+Low confidence applies when conclusions depend on rumor, disclosure is insufficient, real-time fund-flow data is unavailable, peers are weak, business is changing quickly, or assumptions dominate.
+
+## Data Gaps
+
+If key data is unavailable:
+
+1. State exactly what is missing.
+2. Do not fill gaps with guesses.
+3. Lower confidence.
+4. Offer proxy indicators.
+5. State which conclusions cannot currently be supported.
+
+Example:
+
+```text
+公司未披露AI业务收入和订单金额，因此无法确认AI需求是否已转化为实质业绩。
+目前只能根据资本开支、合同负债和管理层表述进行间接判断，结论置信度为低至中等。
+```
+
+## Output Template
+
+Begin with an executive summary under 200 Chinese characters or a similarly concise English paragraph covering the most important fact, valuation state, positive/negative events, fund-flow state, and largest risk.
+
+Then include these sections as relevant:
+
+```markdown
+## 关键事件表
+
+| 日期 | 事件 | 信息级别 | 影响 | 时间范围 | 置信度 |
+| -- | -- | -- | -- | -- | -- |
+
+## 基本面验证链
+
+| 环节 | 状态 | 证据 | 说明 |
+| -- | -- | -- | -- |
+| 行业需求 | 已兑现/部分兑现/尚未兑现/数据不足 |  |  |
+| 客户资本开支 | 已兑现/部分兑现/尚未兑现/数据不足 |  |  |
+| 公司订单 | 已兑现/部分兑现/尚未兑现/数据不足 |  |  |
+| 收入 | 已兑现/部分兑现/尚未兑现/数据不足 |  |  |
+| 利润率 | 已兑现/部分兑现/尚未兑现/数据不足 |  |  |
+| 净利润 | 已兑现/部分兑现/尚未兑现/数据不足 |  |  |
+| 自由现金流 | 已兑现/部分兑现/尚未兑现/数据不足 |  |  |
+
+## 估值比较表
+
+| 指标 | 当前 | 历史中位数 | 行业中位数 | 同业水平 | 初步判断 |
+| -- | --: | --: | --: | --: | -- |
+
+## 资金流和流动性表
+
+| 指标 | 1日 | 5日 | 20日 | 60日 | 结论 |
+| -- | --: | --: | --: | --: | -- |
+
+## 多空因素
+
+### 支持因素
+
+- 因素：证据
+
+### 风险因素
+
+- 风险：证据
+
+## 最终结论
+
+估值判断：
+事件判断：
+流动性判断：
+综合判断：
+结论置信度：
+
+当前市场隐含的核心预期：
+要使当前估值合理，公司需要实现：
+可能推翻当前结论的关键事件：
+下一次应重点观察的数据：
+```
+
+Overall conclusion schema:
+
+```yaml
+conclusion:
+  fundamental: positive | neutral | negative
+  valuation: undervalued | slightly_undervalued | fair | slightly_overvalued | overvalued
+  event_impact: positive | neutral | negative
+  liquidity: positive | neutral | negative
+  overall: favorable | cautiously_favorable | neutral | cautious | unfavorable
+  confidence: high | medium | low
+```
