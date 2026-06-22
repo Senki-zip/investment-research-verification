@@ -153,11 +153,93 @@ For a standard or deep company/industry request, include at least:
 - Industry demand evidence
 - Company revenue/profit evidence
 - Cash-flow and balance-sheet quality evidence
-- Valuation evidence
-- Liquidity/fund-flow evidence where market data is available
+- Valuation evidence with current valuation fields and a relative judgment
+- Liquidity/fund-flow evidence with source type and confidence
 - Risk checks with explicit pass/fail/unknown state
 
 If time or source access is limited, state that the output is scoped and list which modules were not completed.
+
+## Required Valuation Module
+
+For every standard or deep listed-security research output, include a valuation table. Do not replace it with narrative text.
+
+Minimum fields:
+
+```yaml
+valuation_row:
+  security:
+  date:
+  market_cap:
+  price_context:
+  pe_ttm:
+  forward_pe:
+  pb:
+  ps:
+  ev_ebitda:
+  fcf_yield:
+  dividend_yield:
+  historical_percentile:
+  peer_percentile_or_premium:
+  growth_context:
+  cash_flow_quality:
+  valuation_judgment: undervalued | slightly_undervalued | fair | slightly_overvalued | overvalued | unavailable
+  confidence: high | medium | low
+  source:
+```
+
+Use sector-appropriate substitutions when fields are not meaningful:
+
+- Loss-making or early-growth companies: prioritize PS, gross margin, revenue growth, operating cash flow, unit economics, and cash runway.
+- Banks/insurers/brokers: prioritize PB, ROE, capital adequacy, asset quality, and dividend yield.
+- Cyclical sectors: include normalized earnings, cycle position, inventory, utilization, and commodity/input price assumptions.
+- ETFs/indices: include index PE, PB, dividend yield, valuation percentile, concentration, and earnings-growth expectations.
+
+Valuation evidence priority:
+
+1. Exchange, company, index provider, fund company, or official data vendor pages.
+2. Reputable market-data pages with timestamped PE/PB/PS/market-cap values.
+3. Broker consensus estimates, clearly labeled as estimates.
+
+If current valuation fields conflict across sources, show the range and explain likely causes, such as static vs TTM PE, adjusted vs GAAP earnings, negative earnings, different share counts, or delayed data.
+
+## Required Fund-Flow and Liquidity Module
+
+For every standard or deep listed-security research output, include a fund-flow/liquidity table. Do not replace it with narrative text.
+
+Minimum fields:
+
+```yaml
+liquidity_row:
+  security_or_fund:
+  date:
+  price_change:
+  trading_value:
+  turnover_rate:
+  relative_volume_or_percentile:
+  margin_financing:
+  northbound_southbound_or_foreign_holding:
+  etf_share_change:
+  fund_size_change:
+  institutional_holding_change:
+  main_force_flow:
+  evidence_type: confirmed_flow | market_liquidity | sentiment_proxy | unavailable
+  liquidity_judgment: strong_positive | positive | neutral | negative | strong_negative | unavailable
+  confidence: high | medium | low
+  source:
+```
+
+Evidence confidence:
+
+- High: ETF share/fund-size changes, disclosed holdings, northbound/southbound holdings, fund reports, exchange margin data, verified short interest, company buyback filings.
+- Medium: trading value, turnover, relative volume, block trades, margin balance where available.
+- Low: "main force net inflow", large-order flow, retail heat rankings, media summaries without source methodology.
+
+For industries or themes, include both:
+
+- Representative stock liquidity: trading value, turnover, margin financing, relative volume for 5 to 10 leaders.
+- Theme fund flow: ETF shares/fund-size changes over 1-day, 5-day, 20-day, and 60-day windows where available.
+
+When ETF share data is unavailable, say so explicitly and use trading value only as a market-liquidity proxy, not proof of inflow.
 
 ## Valuation Metrics
 

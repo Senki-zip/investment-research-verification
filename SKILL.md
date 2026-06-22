@@ -102,6 +102,20 @@ Assign each verification item one of:
 
 Final answers must include the evidence status for material claims. Only put an item into "next things to track" after attempting available verification and explaining why it cannot be closed now.
 
+## Non-Optional Modules
+
+For standard or deep research on listed companies, industries, indices, ETFs, funds, or portfolios, do not omit valuation or fund-flow/liquidity analysis. If live data is unavailable, include the module with `unavailable` status, the last accessible observation date, proxy indicators, and lowered confidence.
+
+Valuation must include at least current market cap or price context plus PE/PB/PS or the sector-appropriate alternatives. For high-growth or loss-making companies, include PS, gross margin, revenue growth, cash-flow quality, and forward expectation context. For cyclical companies, include normalized-cycle caveats.
+
+Fund-flow/liquidity must separate:
+
+- Confirmed fund flow: ETF shares outstanding, fund size changes, disclosed holdings, northbound/southbound holdings, institutional filings.
+- Market liquidity: trading value, turnover, relative volume, margin financing, short interest where applicable.
+- Low-confidence sentiment proxies: "main force net inflow", large-order flow, media-reported hot money.
+
+Never use trading value or "main force" statistics as proof of real fund subscription or institutional buying.
+
 ## Analysis Rules
 
 Never jump directly from "industry outlook is good" to "the company is attractive." Answer:
