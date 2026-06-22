@@ -336,6 +336,14 @@ Secondary market-data sources:
 - 富途/Moomoo: `https://www.futunn.com/` and `https://www.moomoo.com/` for quotes, turnover, valuation fields, and market snapshots.
 - 雪球: `https://xueqiu.com/` for quote snapshots and announcement mirrors; use as secondary evidence.
 
+For A-share fund-flow tables, keep the market-data source consistent across all representative stocks whenever possible:
+
+1. Use 东方财富 as the default unified source for A-share market snapshots, valuation fields, sector/stock fund-flow pages, turnover, trading value, margin financing, and large-order/main-force flow.
+2. Use 同花顺/iFinD pages as the first fallback when 东方财富 does not provide an accessible field.
+3. Use 新浪、证券时报、富途/Moomoo、雪球 only as fallback or cross-check sources, and label the row as `mixed_source` if their data is combined with 东方财富/同花顺.
+4. Do not compare "main force flow" values across different vendors unless the report explicitly says the methodologies differ.
+5. If a table uses a unified source, state it in the table note, for example: `A-share liquidity fields use 东方财富 unless otherwise noted.`
+
 ### Hong Kong equities
 
 Official and high-confidence sources:

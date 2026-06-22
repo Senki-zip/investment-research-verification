@@ -121,6 +121,8 @@ Never use trading value or "main force" statistics as proof of real fund subscri
 
 Before generic web search for fund-flow or liquidity, use the source routing in `references/research-framework.md`: exchanges and official fund-company pages first, then reputable market-data sites, and only then low-confidence "main force" or large-order flow pages.
 
+For A-share fund-flow and liquidity tables, use a single market-data vendor across representative companies whenever possible. Prefer 东方财富 as the default source, use 同花顺/iFinD as fallback, and mark rows as `mixed_source` if data must be combined from other vendors. Do not compare vendor-specific "main force flow" values without noting methodology differences.
+
 ## Report File Requirement
 
 For standard or deep research, create a user-facing Markdown report in the active workspace `outputs/` directory when available. Use a descriptive lowercase filename such as:
