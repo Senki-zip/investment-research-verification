@@ -159,6 +159,41 @@ For a standard or deep company/industry request, include at least:
 
 If time or source access is limited, state that the output is scoped and list which modules were not completed.
 
+## Required Report Artifact
+
+For standard or deep research, write the final research/statistical report to a Markdown file. Prefer the current workspace `outputs/` directory for user-facing deliverables. The filename should be stable and descriptive:
+
+```text
+outputs/<target-or-theme>-research-YYYY-MM-DD.md
+```
+
+Minimum report structure:
+
+```markdown
+# <Target or Theme> Investment Research Verification Report
+
+Date:
+Scope:
+Method:
+Disclaimer:
+
+## Executive Summary
+## Research Target and Coverage
+## Key Events and Evidence Levels
+## Fundamental Verification Chain
+## Financial Quality and Cash-Flow Checks
+## Valuation Table
+## Fund-Flow and Liquidity Table
+## Peer/Benchmark Comparison
+## Supportive Factors
+## Risk Factors and Failed Checks
+## Data Gaps and Proxy Indicators
+## Final Conclusion
+## Source List
+```
+
+The chat response should summarize the key conclusion and link to the report file. Do not omit the report file for standard/deep work unless filesystem writing is impossible.
+
 ## Required Valuation Module
 
 For every standard or deep listed-security research output, include a valuation table. Do not replace it with narrative text.

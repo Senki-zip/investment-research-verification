@@ -78,7 +78,8 @@ Use current data for current conclusions. Do not use stale filings to explain a 
 7. Convert every "needs further verification" item into an immediate evidence search unless the data is genuinely unavailable.
 8. Classify each key event as positive, neutral, or negative with confidence and time horizon.
 9. Check risk factors and value-trap conditions before giving any favorable or undervalued conclusion.
-10. Output a structured conclusion with verified evidence, failed checks, missing data, assumptions, uncertainty, and next verification points.
+10. Write a Markdown research/statistical report file for standard or deep research requests.
+11. Output a structured conclusion with verified evidence, failed checks, missing data, assumptions, uncertainty, next verification points, and a link to the saved report file.
 
 For detailed metric checklists, scoring rules, event templates, and output tables, read `references/research-framework.md`.
 
@@ -115,6 +116,16 @@ Fund-flow/liquidity must separate:
 - Low-confidence sentiment proxies: "main force net inflow", large-order flow, media-reported hot money.
 
 Never use trading value or "main force" statistics as proof of real fund subscription or institutional buying.
+
+## Report File Requirement
+
+For standard or deep research, create a user-facing Markdown report in the active workspace `outputs/` directory when available. Use a descriptive lowercase filename such as:
+
+```text
+outputs/<topic>-research-YYYY-MM-DD.md
+```
+
+The report must include the complete evidence tables, valuation table, fund-flow/liquidity table, source list, data gaps, confidence labels, and final conclusion. The chat answer may be a concise summary, but it must link to the saved report. If file writing is not available, state that limitation and include the full report in the response.
 
 ## Analysis Rules
 
