@@ -119,6 +119,8 @@ Fund-flow/liquidity must separate:
 
 Never use trading value or "main force" statistics as proof of real fund subscription or institutional buying.
 
+Before generic web search for fund-flow or liquidity, use the source routing in `references/research-framework.md`: exchanges and official fund-company pages first, then reputable market-data sites, and only then low-confidence "main force" or large-order flow pages.
+
 ## Report File Requirement
 
 For standard or deep research, create a user-facing Markdown report in the active workspace `outputs/` directory when available. Use a descriptive lowercase filename such as:

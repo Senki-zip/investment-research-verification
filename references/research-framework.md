@@ -313,6 +313,86 @@ For industries or themes, include both:
 
 When ETF share data is unavailable, say so explicitly and use trading value only as a market-liquidity proxy, not proof of inflow.
 
+## Fund-Flow and Liquidity Source Routing
+
+Use this source routing before generic web search. Prefer official or primary sources for confirmed fund-flow evidence, then use market-data sites for liquidity and sentiment proxies.
+
+### China A-share equities
+
+Official and high-confidence sources:
+
+- Shanghai Stock Exchange: `https://www.sse.com.cn/` for listed-company pages, daily trading, margin trading, block trades, announcements.
+- Shenzhen Stock Exchange: `https://www.szse.cn/` for listed-company pages, daily trading, margin trading, block trades, announcements.
+- Beijing Stock Exchange: `https://www.bse.cn/` for BSE-listed securities.
+- China Securities Depository and Clearing: `https://www.chinaclear.cn/` for investor/account and market statistics when relevant.
+- HKEX Stock Connect: `https://www.hkex.com.hk/Mutual-Market/Stock-Connect/` for northbound/southbound aggregate data and eligible lists.
+- Company announcements via exchange pages, 巨潮资讯 `https://www.cninfo.com.cn/`, or official company IR pages for shareholder changes, buybacks, pledges, lock-up releases, and institutional holdings.
+
+Secondary market-data sources:
+
+- 东方财富 quote/data pages: `https://quote.eastmoney.com/`, `https://data.eastmoney.com/` for PE/PB/PS, market cap, turnover, margin financing, large-order flow, sector flow.
+- 新浪财经: `https://finance.sina.com.cn/` and `https://vip.stock.finance.sina.com.cn/` for quotes, announcements, transaction data, and news.
+- 证券时报 quote pages: `https://www.stcn.com/quotes/` for market snapshots, financing balance, and related news.
+- 富途/Moomoo: `https://www.futunn.com/` and `https://www.moomoo.com/` for quotes, turnover, valuation fields, and market snapshots.
+- 雪球: `https://xueqiu.com/` for quote snapshots and announcement mirrors; use as secondary evidence.
+
+### Hong Kong equities
+
+Official and high-confidence sources:
+
+- HKEXnews: `https://www.hkexnews.hk/` for filings, announcements, shareholding changes.
+- HKEX market data: `https://www.hkex.com.hk/Market-Data/` for official quote and turnover references.
+- CCASS shareholding search: use HKEX CCASS pages for custody/holding changes where relevant.
+- Stock Connect data: use HKEX Stock Connect pages for southbound holding and flow context.
+
+Secondary sources:
+
+- 富途/Moomoo, AASTOCKS, 新浪港股, 东方财富港股 for valuation, turnover, and daily market snapshots.
+
+### US-listed equities and ADRs
+
+Official and high-confidence sources:
+
+- SEC EDGAR: `https://www.sec.gov/edgar` for filings, share issuance, buybacks, 13F-related issuer disclosures.
+- Nasdaq/NYSE official pages for trading and listing context.
+- FINRA margin/short-interest pages when relevant.
+
+Secondary sources:
+
+- Nasdaq, Yahoo Finance, Koyfin, TradingView, CompaniesMarketCap, Macrotrends, Moomoo/Futu for valuation, market cap, turnover, short interest, and analyst estimate context.
+
+### ETFs and funds
+
+Official and high-confidence sources:
+
+- Fund manager official product pages for NAV, shares outstanding, fund size, holdings, premium/discount, tracking error, and creation/redemption information.
+- Exchange ETF pages for ETF trading value, turnover, premium/discount, and creation/redemption rules.
+- Index provider pages for methodology, constituent weights, index valuation and earnings-growth data.
+
+Secondary sources:
+
+- 天天基金 `https://fund.eastmoney.com/`, 东方财富 ETF data pages, 新浪基金, Wind/Choice/iFinD if available through the user environment, and fund-company announcements mirrored on exchange/CNInfo.
+
+### Data to fetch by source type
+
+For each representative stock, try in this order:
+
+1. Trading value, turnover, price change: exchange quote page or reputable quote page.
+2. Margin financing / securities lending: SSE/SZSE official margin pages first; then 东方财富/证券时报 if official page is hard to fetch.
+3. Northbound/southbound holdings: HKEX Stock Connect or exchange/market-data mirrors.
+4. Block trades, buybacks, pledges, lock-up releases: exchange announcements and company filings.
+5. Institutional/fund holdings: latest periodic reports, fund holdings, shareholder top-ten disclosures.
+6. Main-force or large-order flow: only after higher-confidence sources; label as `sentiment_proxy` and low confidence.
+
+For each ETF or theme fund, try in this order:
+
+1. Fund-company product page for shares outstanding and fund size.
+2. Exchange ETF page for trading value, turnover, premium/discount.
+3. Fund periodic report for holdings.
+4. Secondary ETF flow pages for 1-day, 5-day, 20-day, 60-day share/fund-size changes.
+
+If a source blocks access or requires a paid terminal, write `unavailable`, identify the blocked source, and substitute a lower-confidence proxy rather than omitting the row.
+
 ## Valuation Metrics
 
 General companies:
