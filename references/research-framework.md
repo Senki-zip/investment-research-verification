@@ -182,8 +182,8 @@ Disclaimer:
 ## Key Events and Evidence Levels
 ## Fundamental Verification Chain
 ## Financial Quality and Cash-Flow Checks
-## Valuation Table
-## Fund-Flow and Liquidity Table
+## One-Year Price Trend Review
+## Valuation, Fund-Flow and Liquidity Table
 ## Peer/Benchmark Comparison
 ## Supportive Factors
 ## Risk Factors and Failed Checks
@@ -193,6 +193,41 @@ Disclaimer:
 ```
 
 The chat response should summarize the key conclusion and link to the report file. Do not omit the report file for standard/deep work unless filesystem writing is impossible.
+
+## Required One-Year Price Trend Review
+
+For standard or deep company, industry, theme, commodity, index, ETF, fund, or portfolio research, include a one-year price trend review. Do not replace it with a vague chart reference or narrative only.
+
+Minimum fields:
+
+```yaml
+one_year_price_trend_row:
+  security_or_asset:
+  window_start_date:
+  window_end_or_latest_date:
+  start_price:
+  latest_or_end_price:
+  one_year_return:
+  one_year_high:
+  one_year_high_date:
+  one_year_low:
+  one_year_low_date:
+  max_drawdown:
+  benchmark_or_peer_return:
+  relative_performance:
+  key_upside_drivers:
+  key_downside_drivers:
+  evidence_status: verified | partially_verified | unavailable
+  source:
+```
+
+Interpretation rules:
+
+- Separate commodity price trend from equity price trend when researching cyclical or resource industries.
+- Do not infer fundamental improvement from price gains alone; compare the price trend with revenue, profit, cash flow, and valuation changes.
+- For industry/theme research, include 5 to 10 representative securities or assets plus the relevant benchmark, such as a commodity, sector index, or ETF.
+- If full daily history is unavailable, use a reputable chart snapshot or periodic quote source, state the exact observation dates, and lower confidence.
+- For securities with corporate actions, use adjusted prices when available and state whether prices are adjusted or raw.
 
 ## Required Company Financial Statistics Module
 

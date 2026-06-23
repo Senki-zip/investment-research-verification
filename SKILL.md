@@ -17,6 +17,7 @@ When the user does not specify parameters, use:
 
 - Event window: latest 30 days
 - Financial comparison: latest 3 years
+- Price trend review: latest 1 year
 - Valuation history: latest 5 years
 - Fund flow windows: 1 day, 5 days, 20 days, 60 days
 - Peer set for company research: 3 to 8 comparable companies
@@ -73,13 +74,14 @@ Use current data for current conclusions. Do not use stale filings to explain a 
 
 3. Retrieve authoritative disclosures and recent events.
 4. Extract financials, operating metrics, valuation, and liquidity/fund-flow data.
-5. Compare against historical ranges, industry averages, peers, and relevant market benchmarks.
-6. Test whether growth has been realized in orders, revenue, profit, and free cash flow.
-7. Convert every "needs further verification" item into an immediate evidence search unless the data is genuinely unavailable.
-8. Classify each key event as positive, neutral, or negative with confidence and time horizon.
-9. Check risk factors and value-trap conditions before giving any favorable or undervalued conclusion.
-10. Write a Markdown research/statistical report file for standard or deep research requests.
-11. Output a structured conclusion with verified evidence, failed checks, missing data, assumptions, uncertainty, next verification points, and a link to the saved report file.
+5. Review the latest 1-year price trend for representative securities, commodities, indices, ETFs, or funds.
+6. Compare against historical ranges, industry averages, peers, and relevant market benchmarks.
+7. Test whether growth has been realized in orders, revenue, profit, and free cash flow.
+8. Convert every "needs further verification" item into an immediate evidence search unless the data is genuinely unavailable.
+9. Classify each key event as positive, neutral, or negative with confidence and time horizon.
+10. Check risk factors and value-trap conditions before giving any favorable or undervalued conclusion.
+11. Write a Markdown research/statistical report file for standard or deep research requests.
+12. Output a structured conclusion with verified evidence, failed checks, missing data, assumptions, uncertainty, next verification points, and a link to the saved report file.
 
 For detailed metric checklists, scoring rules, event templates, and output tables, read `references/research-framework.md`.
 
@@ -109,6 +111,8 @@ For standard or deep research on listed companies, industries, indices, ETFs, fu
 
 For standard or deep company/industry/theme research, do not omit a company financial statistics table. At minimum include revenue, revenue growth, net profit or adjusted net profit, profit growth, gross margin or net margin where available, operating cash flow, and the reporting period for each representative company. If a field is unavailable, mark it `unavailable` rather than dropping the column.
 
+For standard or deep research, do not omit a `One-Year Price Trend Review`. At minimum include the observation window, starting price, latest or ending price, 1-year return, 1-year high, 1-year low, maximum drawdown where available, benchmark or commodity comparison, and the key events that explain major moves. Use concrete numeric values with dates and sources. If a full 1-year series cannot be fetched, use the best available 1-year chart/snapshot source and document the limitation.
+
 Valuation must include at least current market cap or price context plus PE/PB/PS or the sector-appropriate alternatives. For high-growth or loss-making companies, include PS, gross margin, revenue growth, cash-flow quality, and forward expectation context. For cyclical companies, include normalized-cycle caveats.
 
 Fund-flow/liquidity must separate:
@@ -135,7 +139,7 @@ For standard or deep research, create a user-facing Markdown report in the activ
 outputs/<topic>-research-YYYY-MM-DD.md
 ```
 
-The report must include the complete evidence tables, combined valuation/fund-flow/liquidity table, source list, data gaps, confidence labels, and final conclusion. The chat answer may be a concise summary, but it must link to the saved report. If file writing is not available, state that limitation and include the full report in the response.
+The report must include the complete evidence tables, one-year price trend review, combined valuation/fund-flow/liquidity table, source list, data gaps, confidence labels, and final conclusion. The chat answer may be a concise summary, but it must link to the saved report. If file writing is not available, state that limitation and include the full report in the response.
 
 ## Analysis Rules
 
