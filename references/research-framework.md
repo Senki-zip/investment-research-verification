@@ -231,20 +231,22 @@ Interpretation rules:
 - Receivables, contract assets, inventory, or prepayments growing much faster than revenue should be flagged.
 - One-off investment income, disposal gains, subsidy gains, or fair-value changes should be separated from operating profit quality when material.
 
-## Required Valuation Module
+## Required Combined Valuation, Fund-Flow and Liquidity Module
 
-For every standard or deep listed-security research output, include a valuation table. Do not replace it with narrative text.
+For every standard or deep listed-security research output, include one combined table named `Valuation, Fund-Flow and Liquidity Table`. Do not split valuation and liquidity into separate tables unless the user explicitly asks for separate tables. Do not replace this table with narrative text.
 
 Minimum fields:
 
 ```yaml
-valuation_row:
-  security:
+valuation_fund_flow_liquidity_row:
+  security_or_fund:
   date:
-  market_cap:
   opening_price:
   closing_or_latest_price:
   price_change:
+  trading_value:
+  turnover_rate:
+  market_cap:
   pe_ttm:
   forward_pe:
   pb:
@@ -252,11 +254,20 @@ valuation_row:
   ev_ebitda:
   fcf_yield:
   dividend_yield:
+  relative_volume_or_percentile:
+  margin_financing:
+  northbound_southbound_or_foreign_holding:
+  etf_share_change:
+  fund_size_change:
+  institutional_holding_change:
+  main_force_flow:
+  evidence_type: confirmed_flow | market_liquidity | sentiment_proxy | unavailable
   historical_percentile:
   peer_percentile_or_premium:
   growth_context:
   cash_flow_quality:
   valuation_judgment: undervalued | slightly_undervalued | fair | slightly_overvalued | overvalued | unavailable
+  liquidity_judgment: strong_positive | positive | neutral | negative | strong_negative | unavailable
   confidence: high | medium | low
   source:
 ```
@@ -277,34 +288,6 @@ Valuation evidence priority:
 If current valuation fields conflict across sources, show the range and explain likely causes, such as static vs TTM PE, adjusted vs GAAP earnings, negative earnings, different share counts, or delayed data.
 
 Price fields are mandatory numeric fields for listed securities. Include same-day opening price and closing price; if the market has not closed, label the latest traded price with the timestamp and update the report after close when the user asks for a daily report. Do not use vague price context such as "quote page available" or "valuation page available."
-
-## Required Fund-Flow and Liquidity Module
-
-For every standard or deep listed-security research output, include a fund-flow/liquidity table. Do not replace it with narrative text.
-
-Minimum fields:
-
-```yaml
-liquidity_row:
-  security_or_fund:
-  date:
-  opening_price:
-  closing_or_latest_price:
-  price_change:
-  trading_value:
-  turnover_rate:
-  relative_volume_or_percentile:
-  margin_financing:
-  northbound_southbound_or_foreign_holding:
-  etf_share_change:
-  fund_size_change:
-  institutional_holding_change:
-  main_force_flow:
-  evidence_type: confirmed_flow | market_liquidity | sentiment_proxy | unavailable
-  liquidity_judgment: strong_positive | positive | neutral | negative | strong_negative | unavailable
-  confidence: high | medium | low
-  source:
-```
 
 Evidence confidence:
 

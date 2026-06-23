@@ -125,6 +125,8 @@ For A-share fund-flow and liquidity tables, use a single market-data vendor acro
 
 Numerical market-data fields must be closed with concrete values, not page pointers. For listed securities, any table that includes price or liquidity must include the observation date, opening price, closing price or latest traded price, price change, trading value, turnover rate, market cap, and the source. If 东方财富 is unstable or does not expose a field, immediately use 同花顺/iFinD, exchange pages, 腾讯行情, 新浪财经, 证券时报, 富途/Moomoo, TradingView, or another reputable quote source and label the fallback source. Do not write placeholder phrases such as "估值页可查", "行情页入口可查", "页面可查", "未稳定抓取", or similar text in metric cells. A metric cell must contain a numeric value with unit and period, or the metric should be removed from that table and explained in the data-gap section after fallback sources have been attempted.
 
+For standard reports, merge valuation and market-liquidity/fund-flow into one combined table named `Valuation, Fund-Flow and Liquidity Table`. Do not maintain two separate tables unless the user explicitly asks for separate tables. The combined table must contain concrete price, valuation, liquidity, and fund-flow/proxy fields in one row per security or fund, with source and confidence labels.
+
 ## Report File Requirement
 
 For standard or deep research, create a user-facing Markdown report in the active workspace `outputs/` directory when available. Use a descriptive lowercase filename such as:
@@ -133,7 +135,7 @@ For standard or deep research, create a user-facing Markdown report in the activ
 outputs/<topic>-research-YYYY-MM-DD.md
 ```
 
-The report must include the complete evidence tables, valuation table, fund-flow/liquidity table, source list, data gaps, confidence labels, and final conclusion. The chat answer may be a concise summary, but it must link to the saved report. If file writing is not available, state that limitation and include the full report in the response.
+The report must include the complete evidence tables, combined valuation/fund-flow/liquidity table, source list, data gaps, confidence labels, and final conclusion. The chat answer may be a concise summary, but it must link to the saved report. If file writing is not available, state that limitation and include the full report in the response.
 
 ## Analysis Rules
 
