@@ -54,6 +54,8 @@ For key events and data, record:
 
 Use current data for current conclusions. Do not use stale filings to explain a business that has materially changed.
 
+For any request involving "today", "current", "now", "latest", "real-time", sudden market moves, intraday selloffs/rallies, current valuation, current price, fund flow, or liquidity, retrieve live or near-real-time market data before forming the conclusion. Record the exact quote timestamp, timezone, source, and whether the feed is real-time, delayed, intraday snapshot, or previous close. If a real-time source is unavailable, use the freshest reputable delayed quote and explicitly lower confidence.
+
 ## Core Workflow
 
 1. Identify the target: formal name, ticker, market, business lines, revenue drivers, industry, peers, benchmarks, and time range.
@@ -74,14 +76,15 @@ Use current data for current conclusions. Do not use stale filings to explain a 
 
 3. Retrieve authoritative disclosures and recent events.
 4. Extract financials, operating metrics, valuation, and liquidity/fund-flow data.
-5. Review the latest 1-year price trend for representative securities, commodities, indices, ETFs, or funds.
-6. Compare against historical ranges, industry averages, peers, and relevant market benchmarks.
-7. Test whether growth has been realized in orders, revenue, profit, and free cash flow.
-8. Convert every "needs further verification" item into an immediate evidence search unless the data is genuinely unavailable.
-9. Classify each key event as positive, neutral, or negative with confidence and time horizon.
-10. Check risk factors and value-trap conditions before giving any favorable or undervalued conclusion.
-11. Write a Markdown research/statistical report file for standard or deep research requests.
-12. Output a structured conclusion with verified evidence, failed checks, missing data, assumptions, uncertainty, next verification points, and a link to the saved report file.
+5. Retrieve real-time or near-real-time market snapshots when the conclusion depends on current prices, intraday moves, fund flow, or liquidity.
+6. Review the latest 1-year price trend for representative securities, commodities, indices, ETFs, or funds.
+7. Compare against historical ranges, industry averages, peers, and relevant market benchmarks.
+8. Test whether growth has been realized in orders, revenue, profit, and free cash flow.
+9. Convert every "needs further verification" item into an immediate evidence search unless the data is genuinely unavailable.
+10. Classify each key event as positive, neutral, or negative with confidence and time horizon.
+11. Check risk factors and value-trap conditions before giving any favorable or undervalued conclusion.
+12. Write a Markdown research/statistical report file for standard or deep research requests.
+13. Output a structured conclusion with verified evidence, failed checks, missing data, assumptions, uncertainty, next verification points, and a link to the saved report file.
 
 For detailed metric checklists, scoring rules, event templates, and output tables, read `references/research-framework.md`.
 
@@ -108,6 +111,8 @@ Final answers must include the evidence status for material claims. Only put an 
 ## Non-Optional Modules
 
 For standard or deep research on listed companies, industries, indices, ETFs, funds, or portfolios, do not omit valuation or fund-flow/liquidity analysis. If live data is unavailable, include the module with `unavailable` status, the last accessible observation date, proxy indicators, and lowered confidence.
+
+For market-moving, intraday, or current-status questions, do not rely on prior saved reports, yesterday's close, or static news summaries alone. Include a real-time market snapshot table with the exact retrieval timestamp. The snapshot must include current/latest price, same-day open where applicable, prior close or reference price, intraday high/low, percent change, trading value/volume or open interest when available, source, and quote latency status.
 
 For standard or deep company/industry/theme research, do not omit a company financial statistics table. At minimum include revenue, revenue growth, net profit or adjusted net profit, profit growth, gross margin or net margin where available, operating cash flow, and the reporting period for each representative company. If a field is unavailable, mark it `unavailable` rather than dropping the column.
 
@@ -139,7 +144,7 @@ For standard or deep research, create a user-facing Markdown report in the activ
 outputs/<topic>-research-YYYY-MM-DD.md
 ```
 
-The report must include the complete evidence tables, one-year price trend review, combined valuation/fund-flow/liquidity table, source list, data gaps, confidence labels, and final conclusion. The chat answer may be a concise summary, but it must link to the saved report. If file writing is not available, state that limitation and include the full report in the response.
+The report must include the complete evidence tables, real-time market snapshot when relevant, one-year price trend review, combined valuation/fund-flow/liquidity table, source list, data gaps, confidence labels, and final conclusion. The chat answer may be a concise summary, but it must link to the saved report. If file writing is not available, state that limitation and include the full report in the response.
 
 ## Analysis Rules
 

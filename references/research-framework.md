@@ -181,6 +181,7 @@ Disclaimer:
 ## Research Target and Coverage
 ## Key Events and Evidence Levels
 ## Fundamental Verification Chain
+## Real-Time Market Snapshot
 ## Financial Quality and Cash-Flow Checks
 ## One-Year Price Trend Review
 ## Valuation, Fund-Flow and Liquidity Table
@@ -193,6 +194,40 @@ Disclaimer:
 ```
 
 The chat response should summarize the key conclusion and link to the report file. Do not omit the report file for standard/deep work unless filesystem writing is impossible.
+
+## Required Real-Time Market Data Module
+
+For current-market, intraday, sudden-move, fund-flow, liquidity, valuation, commodity, index, ETF, or "why is it moving today" requests, fetch live or near-real-time market data before finalizing. This module is mandatory even when a one-year price trend is also included.
+
+Minimum fields:
+
+```yaml
+real_time_market_snapshot_row:
+  security_or_asset:
+  retrieval_timestamp:
+  quote_timestamp:
+  timezone:
+  latest_price:
+  prior_close_or_reference_price:
+  same_day_open:
+  intraday_high:
+  intraday_low:
+  price_change:
+  price_change_percent:
+  trading_value_or_volume:
+  open_interest_or_turnover:
+  source:
+  quote_latency: real_time | near_real_time | delayed | previous_close
+  evidence_status: verified | partially_verified | unavailable
+```
+
+Rules:
+
+- Use the freshest reputable source available. Prefer exchange feeds, official market pages, broker/data terminals, and reputable quote APIs. For A-shares and China futures, acceptable fallback sources include 东方财富、同花顺/iFinD、腾讯行情、新浪行情、交易所页面.
+- Do not describe a move as "today", "current", "now", "暴跌", "跳水", "实时", or "latest" without a timestamped quote.
+- If markets are closed, state that the snapshot is from the latest close or after-hours/pre-market source.
+- If quote sources disagree, show the range and explain likely causes such as delayed feeds, futures vs spot, different contracts, currency, or timezone.
+- Keep real-time snapshots separate from 1-year trend tables. The former explains current state; the latter explains context.
 
 ## Required One-Year Price Trend Review
 
